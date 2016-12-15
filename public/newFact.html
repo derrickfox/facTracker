@@ -1,0 +1,63 @@
+<style>
+    .checkboxdemoSyncing .checkboxDemo1 div {
+        clear: both; }
+
+    .checkboxdemoSyncing legend {
+        color: #3F51B5; }
+
+    .checkboxdemoSyncing legend code {
+        color: #3F51B5;
+        font-weight: normal; }
+
+    .checkboxdemoSyncing p {
+        padding-left: 8px; }
+
+    .checkboxdemoSyncing .info {
+        padding-left: 13px; }
+
+    .checkboxdemoSyncing div.standard {
+        padding: 8px;
+        padding-left: 15px; }
+
+    .checkboxdemoSyncing fieldset.standard {
+        border-style: solid;
+        border-width: 1px;
+        height: 100%; }
+
+</style>
+<div layout="row">
+    <md-button flex="100" ng-click="postToMongo()" class="btn btn-danger" layout="column">Add This Fact!</md-button>
+</div>
+<div layout="row">
+    <md-card class="md-padding" layout="column" flex="50">
+        <h1 class="md-display-2">Enter in a new fact!</h1>
+        <form ng-submit="postToMongo()">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>Fact Name</label>
+                <input ng-model="factName">
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Fact Description</label>
+                <textarea ng-model="factDescription" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Fact URL</label>
+                <textarea ng-model="factURL" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+
+        </form>
+    </md-card>
+    <md-card flex="50" style="padding: 10px;">
+        <h3>Add a new tag...</h3>
+        <form ng-submit="postTagToMongo()">
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>New Tag Name</label><br>
+                <input ng-model="tagName">
+            </md-input-container>
+            <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add This Tag!</md-button>
+        </form>
+    </md-card>
+</div>
+</div>
+
+<!--<button ui-sref="newIng" class="btn btn-success">Add Ingredient</button><br><br>-->

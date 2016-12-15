@@ -1,0 +1,29 @@
+<br>
+<div layout="row">
+    <div flex="20">
+        <md-card class="md-padding">
+            <md-card-title-text>
+                <span class="md-headline">Search Facts...</span><br><br>
+                <span class="md-subhead"><input ng-model="search" placeholder="Filter Facts"></span>
+            </md-card-title-text><br>
+            <md-card-title-text>
+                <span class="md-headline">Search Tags...</span><br>
+            </md-card-title-text><br>
+            <div ng-repeat="item in tagsArrayReturned | orderBy">
+                <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+                    {{ item.tagName }}
+                </md-checkbox>
+            </div>
+        </md-card>
+    </div>
+
+    <!-- returnedReceipe or resultsArray -->
+    <!-- Below is the filter config for the tags filter
+     | testFilter2:selected track by $index
+     -->
+    <div ng-repeat="rec in factsArrayReturned" class="col-md-10">
+        <card></card>
+    </div>
+</div>
+
+

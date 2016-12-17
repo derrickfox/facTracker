@@ -73,6 +73,7 @@ router.route('/facts')
         fact.factDescription = req.body.factDescription;
         fact.factURL = req.body.factURL;
         fact.factTags = req.body.factTags;
+        fact.factSource = req.body.factSource;
         fact.save(function(err, fact) {
             if (err){
                 return res.send(500, err);
@@ -110,6 +111,7 @@ router.route('/facts/:id')
             fact.factDescription = req.body.factDescription;
             fact.factURL = req.body.factURL;
             fact.factTags = req.body.factTags;
+            fact.factSource = req.body.factSource;
 
             fact.save(function(err, fact){
                 if(err)

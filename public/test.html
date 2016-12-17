@@ -1,9 +1,10 @@
+
 <br>
 <div layout="row">
-    <div flex="20" style="border-color: #000088; border-style: groove; border-color: deepskyblue; border-width: 3px;">
+    <div flex="20" style="border-color: #000088; border-style: groove; border-color: deepskyblue; border-width: 3px; padding: 10px;">
         <md-card class="md-padding" style="margin: 1px;">
             <md-card-title-text>
-                <span class="md-headline">Search Facts...</span><br><br>
+                <span class="md-headline">Search Stuff...</span><br><br>
                 <span class="md-subhead"><input ng-model="searchFacts" placeholder="Filter Facts"></span>
             </md-card-title-text><br>
             <md-card-title-text>
@@ -17,17 +18,26 @@
             </div>
         </md-card>
     </div>
-
-    <!-- returnedReceipe or resultsArray -->
-    <!-- Below is the filter config for the tags filter
-     | testFilter2:selected track by $index
-     -->
-
     <div flex="80" style="padding: 10px;">
         <div ng-repeat="rec in factsArrayReturned | filter:searchFacts" layout="column">
-            <card></card>
+            <card></card> <br>
         </div>
     </div>
 </div>
 
 
+
+
+<br>
+<div layout="column">
+    <h3>Row</h3>
+    <h3>Row</h3>
+    <h3>Row</h3>
+    <h3>Row</h3>
+</div>
+<div layout="row">
+    <h3>Column</h3>
+    <h3>Column</h3>
+    <h3>Column</h3>
+    <h3>Column</h3>
+</div>

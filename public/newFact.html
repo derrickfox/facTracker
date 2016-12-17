@@ -44,18 +44,27 @@
                 <label>Fact URL</label>
                 <textarea ng-model="factURL" md-maxlength="150" rows="5" md-select-on-focus></textarea>
             </md-input-container>
-
+            <md-input-container class="md-block">
+                <label>Fact Source</label>
+                <textarea ng-model="factSource" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
         </form>
     </md-card>
-    <md-card flex="50" style="padding: 10px;">
+    <md-card flex="50" class="md-padding">
         <h3>Add a new tag...</h3>
         <form ng-submit="postTagToMongo()">
             <md-input-container class="md-block" flex-gt-sm>
                 <label>New Tag Name</label><br>
                 <input ng-model="tagName">
             </md-input-container>
-            <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add This Tag!</md-button>
-        </form>
+            <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add New Tag!</md-button>
+        </form><br>
+        <h3>Available Tags...</h3><br>
+        <div ng-repeat="item in tagsArrayReturned | orderBy | filter:searchTags">
+            <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
+                {{ item.tagName }}
+            </md-checkbox>
+        </div>
     </md-card>
 </div>
 </div>

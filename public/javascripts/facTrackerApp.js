@@ -1,13 +1,14 @@
 var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.router'])
     .controller('factController', function($scope, $state, $http, factService, tagService, $rootScope){
         $scope.facts = factService.query();
-        $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: []};
+        $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
         $scope.newTag = {tagName: ''};
         $scope.tagName = '';
         $scope.factName = '';
         $scope.factDescription = '';
         $scope.factURL = '';
         $scope.factTags = [];
+        $scope.factSource = '';
         $scope.factID;
         $rootScope.singleFact;
 
@@ -100,14 +101,16 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
             $scope.newFact.factDescription = $scope.factDescription;
             $scope.newFact.factURL = $scope.factURL;
             $scope.newFact.factTags = $scope.factTags;
+            $scope.newFact.factSource = $scope.factSource;
             factService.save($scope.newFact, function(){
                 $scope.facts = factService.query();
-                $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: []};
+                $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
             });
             $scope.factName = '';
             $scope.factDescription = '';
             $scope.factURL = '';
             $scope.factTags = [];
+            $scope.factSource = '';
             $scope.getAllFacts();
             $state.go('first');
         };
@@ -125,11 +128,12 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
 
         $scope.getOneFact = function(id) {
             $rootScope.singleFact = factService.get({id: id}, function(fact) {
-                var thisFact = {factName: '', factDescription: '', factURL: '', factTags: []};
-                thisFact.factName = receipe.factName;
-                thisFact.factDescription = receipe.factDescription;
-                thisFact.factURL = receipe.factURL;
-                thisFact.factTags = receipe.factTags;
+                var thisFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
+                thisFact.factName = fact.factName;
+                thisFact.factDescription = fact.factDescription;
+                thisFact.factURL = fact.factURL;
+                thisFact.factTags = fact.factTags;
+                thisFact.factSource = fact.factSource;
                 return thisFact;
             });
             $state.go('details');
@@ -155,9 +159,10 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         $scope.updateFact = function() {
             //alert($rootScope.singleReceipe._id);
             $scope.entry = factService.get({ id: $rootScope.singleFact._id }, function() {
-                $scope.entry.factName = $scope.factName;
-                $scope.entry.factDescription = $scope.factDescription;
-                $scope.entry.factURL = $scope.factURL;
+                $scope.entry.factName = $rootScope.singleFact.factName;
+                $scope.entry.factDescription = $rootScope.singleFact.factDescription;
+                $scope.entry.factURL = $rootScope.singleFact.factURL;
+                $scope.entry.factSource = $rootScope.singleFact.factSource;
                 // TODO add a way to update picture URL.
                 $scope.entry.$update(function() {
                     $state.go('first');
@@ -195,7 +200,8 @@ app.factory('factService', function($resource){
             factName: "@factName",
             factDescription: "@factDescription",
             factURL: "@factURL",
-            factTags: "@factTags"
+            factTags: "@factTags",
+            factSource: "@factSource"
         },
         {
             update: {
@@ -238,6 +244,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         .state('details/:id', {
             url: '/details/:id',
             templateUrl: 'factDetails.html',
+            controller: 'factController'
+        })
+
+        .state('test/', {
+            url: '/test/',
+            templateUrl: 'test.html',
             controller: 'factController'
         })
 

@@ -5,7 +5,8 @@ var factSchema = new mongoose.Schema({
     factName: String,		//should be changed to ObjectId, ref "User"
     factDescription: String,
     factURL: String,
-    factTags: Array
+    factTags: Array,
+    factSource: String
 });
 
 

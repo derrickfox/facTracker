@@ -1,21 +1,24 @@
 var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.router'])
     .controller('factController', function($scope, $state, $http, factService, tagService, $rootScope){
         $scope.facts = factService.query();
-        $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
+        $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: ['one'], factSource: ''};
         $scope.newTag = {tagName: ''};
         $scope.tagName = '';
         $scope.factName = '';
         $scope.factDescription = '';
         $scope.factURL = '';
-        $scope.factTags = [];
+        $scope.factTags = ['two'];
         $scope.factSource = '';
         $scope.factID;
         $rootScope.singleFact;
+        $rootScope.testName = 'failed';
+        $rootScope.test = "Root Test";
+        $rootScope.selected = [];
 
-        $scope.tags = ["Apple","Onions","Carrots","Mushrooms","Grapes"];
+        $scope.tags = [];
         $scope.tag = '';
 
-        $scope.selected = ["Carrots"];
+        $scope.selected = [];
         $scope.testArray = ["Carrots", "Grapes"];
 
         // For testing: Begin Block
@@ -40,39 +43,56 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
             }
         };
 
-        //$scope.findInArray($scope.singleInst);
-        //$scope.findInArray($scope.singleInst2);
-        //$scope.findInArray($scope.singleInst3);
-
-        // Testing: End Block
-        $scope.printThis = function(){
-            alert($scope.factTags);
-        };
-
         $scope.toggle = function (item, list) {
-
-            $scope.findInArray(item, $scope.factsArrayReturned);
+            console.clear();
+            //$scope.findInArray(item, $scope.factsArrayReturned);
 
             var idx = list.indexOf(item);
-            var myIdx = $scope.factTags.indexOf(item);
-
-            if (myIdx > -1) {
-                $scope.factTags.splice(myIdx, 1);
-            }
-            else {
-                $scope.factTags.push(item);
-            }
 
             if (idx > -1) {
                 list.splice(idx, 1);
             }
             else {
                 list.push(item);
-                //myList.push(item);
             }
-            //console.clear();
-            console.log(list);
+
+
+            //for(var i = 0; list.length - 1; i++){
+            //    if(item.tagName === list[i].tagName){
+            //        list.push(item);
+            //    }
+            //}
+
+
         };
+
+        $scope.exists = function (item, list) {
+
+            console.log(item.tagName);
+            console.log(list);
+
+            if(item.tagName === list.tagName){
+                    return list.indexOf(item);
+            }
+
+
+            //for(var i = 0; list.length - 1; i++){
+            //    if(item.tagName === list[i].tagName){
+            //        return list.indexOf(item);
+            //    }
+            //}
+
+            //return list.indexOf(item) > -1;
+        };
+
+        $scope.loadArray = function(){
+            console.clear();
+
+            console.log("Root Selected Array is...")
+            console.log($rootScope.selected[0].tagName);
+            console.log("Local Returned Tags are...")
+            console.log($scope.tagsArrayReturned[0].tagName);
+        }
 
         $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
 
@@ -92,15 +112,11 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
             $scope.choices.splice(lastItem);
         };
 
-        $scope.exists = function (item, list) {
-            return list.indexOf(item) > -1;
-        };
-
         $scope.postToMongo = function() {
             $scope.newFact.factName = $scope.factName;
             $scope.newFact.factDescription = $scope.factDescription;
             $scope.newFact.factURL = $scope.factURL;
-            $scope.newFact.factTags = $scope.factTags;
+            $scope.newFact.factTags = $scope.selected;
             $scope.newFact.factSource = $scope.factSource;
             factService.save($scope.newFact, function(){
                 $scope.facts = factService.query();
@@ -116,7 +132,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         };
 
         $scope.postTagToMongo = function() {
-            $scope.newTag.tagName = $scope.tagName;
+            //$scope.newTag.tagName = $scope.tagName;
             tagService.save($scope.newTag, function(){
                 $scope.tags = tagService.query();
                 $scope.newTag = {tagName: ''};
@@ -136,18 +152,24 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 thisFact.factSource = fact.factSource;
                 return thisFact;
             });
+            $rootScope.singleFact.$promise.then(function(data){
+                $rootScope.selected = data.factTags;
+                console.log("Promise completed. Root Selected array is...")
+                console.log($rootScope.selected);
+            });
             $state.go('details');
         };
 
+
         $scope.getAllFacts = function() {
             $scope.factsArrayReturned = factService.query();
-            console.log($scope.factsArrayReturned);
+            //console.log($scope.factsArrayReturned);
 
         };
 
         $scope.getAllTags = function() {
             $scope.tagsArrayReturned = tagService.query();
-            console.log($scope.tagsArrayReturned);
+            //console.log($scope.tagsArrayReturned);
 
         };
 
@@ -163,6 +185,8 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 $scope.entry.factDescription = $rootScope.singleFact.factDescription;
                 $scope.entry.factURL = $rootScope.singleFact.factURL;
                 $scope.entry.factSource = $rootScope.singleFact.factSource;
+                //$scope.entry.factTags = $rootScope.singleFact.factTags;
+                $scope.entry.factTags = $rootScope.singleFact.selected;
                 // TODO add a way to update picture URL.
                 $scope.entry.$update(function() {
                     $state.go('first');

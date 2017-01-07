@@ -43,7 +43,7 @@
                 <legend>Tags</legend>
                 <div layout-wrap="" layout-gt-sm="row">
                     <div ng-repeat="item in $root.tagNames | orderBy"  flex-gt-sm="50">
-                        <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item, $root.selected)">
+                        <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item.tagName, $root.selected)">
                             {{ item.tagName }}
                         </md-checkbox>
                         <!--<md-checkbox ng-checked="exists(item, $root.selected)" ng-click="toggle(item, $root.selected)">-->

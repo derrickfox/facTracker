@@ -67,13 +67,16 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
 
         };
 
-        $scope.exists = function (item, list) {
+        $scope.exists = function (item, list) {;
 
-            //console.log(item);
-            //console.log(list);
-            //console.log(_.includes([1, 2, 3], 1));
-
-            //return _.includes(list.tagName, item) > -1;
+            //var idx = list.indexOf(item);
+            //
+            //if (idx > -1) {
+            //    copyTo.splice(idx, 1);
+            //}
+            //else {
+            //    copyTo.push(item);
+            //}
 
             return list.indexOf(item) > -1;
         };
@@ -90,10 +93,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
             //console.log("List is...")
             //console.log(list);
 
-            console.log("$rootScope.selected on 'details' page...");
-            console.log($rootScope.selected);
-            console.log("$rootScope.singleFact.factTags on 'details' page...")
-            console.log($rootScope.singleFact.factTags);
+            console.log($rootScope.tagNames);
         }
 
         $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
@@ -118,7 +118,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
             $scope.newFact.factName = $scope.factName;
             $scope.newFact.factDescription = $scope.factDescription;
             $scope.newFact.factURL = $scope.factURL;
-            $scope.newFact.factTags = $scope.selected;
+            $scope.newFact.factTags = $rootScope.selected;
             $scope.newFact.factSource = $scope.factSource;
             factService.save($scope.newFact, function(){
                 $scope.facts = factService.query();

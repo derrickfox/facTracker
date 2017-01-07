@@ -60,7 +60,7 @@
             <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add New Tag!</md-button>
         </form><br>
         <h3>Available Tags...</h3><br>
-        <div ng-repeat="item in tagsArrayReturned | orderBy">
+        <div ng-repeat="item in $root.tagNames | orderBy">
             <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
                 {{ item.tagName }}
             </md-checkbox>

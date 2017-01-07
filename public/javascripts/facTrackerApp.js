@@ -1,5 +1,5 @@
 var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.router'])
-    .controller('factController', function($scope, $state, $http, factService, tagService, $rootScope){
+    .controller('factController', function($scope, $state, $http, factService, tagService, $rootScope, $timeout){
         $scope.facts = factService.query();
         $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: ['one'], factSource: ''};
         $scope.newTag = {tagName: ''};
@@ -13,7 +13,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         $rootScope.singleFact;
         $rootScope.testName = 'failed';
         $rootScope.test = "Root Test";
-        $rootScope.selected = [];
+        $rootScope.selected;
 
         $scope.tags = [];
         $scope.tag = '';
@@ -29,6 +29,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         $scope.recArray = ['A', 'C', 'F'];
         $scope.selectedArray = [];
         $scope.resultsArray = [];
+        $rootScope.tagNames = [];
 
         $scope.findInArray = function(inst, list) {
             for(var l = 0; l < list.length-1; l++){
@@ -44,7 +45,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         };
 
         $scope.toggle = function (item, list) {
-            console.clear();
+            //console.clear();
             //$scope.findInArray(item, $scope.factsArrayReturned);
 
             var idx = list.indexOf(item);
@@ -68,30 +69,31 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
 
         $scope.exists = function (item, list) {
 
-            console.log(item.tagName);
-            console.log(list);
+            //console.log(item);
+            //console.log(list);
+            //console.log(_.includes([1, 2, 3], 1));
 
-            if(item.tagName === list.tagName){
-                    return list.indexOf(item);
-            }
+            //return _.includes(list.tagName, item) > -1;
 
-
-            //for(var i = 0; list.length - 1; i++){
-            //    if(item.tagName === list[i].tagName){
-            //        return list.indexOf(item);
-            //    }
-            //}
-
-            //return list.indexOf(item) > -1;
+            return list.indexOf(item) > -1;
         };
 
-        $scope.loadArray = function(){
+        $scope.printThis = function (){
+            console.log("working");
+        }
+
+        $scope.loadArray = function(item, list){
             console.clear();
 
-            console.log("Root Selected Array is...")
-            console.log($rootScope.selected[0].tagName);
-            console.log("Local Returned Tags are...")
-            console.log($scope.tagsArrayReturned[0].tagName);
+            //console.log("First item is...")
+            //console.log(item);
+            //console.log("List is...")
+            //console.log(list);
+
+            console.log("$rootScope.selected on 'details' page...");
+            console.log($rootScope.selected);
+            console.log("$rootScope.singleFact.factTags on 'details' page...")
+            console.log($rootScope.singleFact.factTags);
         }
 
         $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
@@ -153,11 +155,23 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 return thisFact;
             });
             $rootScope.singleFact.$promise.then(function(data){
-                $rootScope.selected = data.factTags;
-                console.log("Promise completed. Root Selected array is...")
+                //$rootScope.selected = data.factTags;
+                $rootScope.selected = [];
+                angular.forEach(data.factTags, function(tag){
+                    $rootScope.selected.push(tag.tagName);
+                });
+                //console.clear();
+                //console.log("Single Fact's Promise Completed")
+
+                console.log("$rootScope.selected from Dashboard...")
                 console.log($rootScope.selected);
+                console.log("$rootScope.singleFact.factTags from Dashboard...")
+                console.log($rootScope.singleFact.factTags);
+
+                $state.go('details');
             });
-            $state.go('details');
+            //$timeout(console.log('Timeout'), 1000);
+
         };
 
 
@@ -168,9 +182,11 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         };
 
         $scope.getAllTags = function() {
-            $scope.tagsArrayReturned = tagService.query();
+            //$scope.tagsArrayReturned = tagService.query();
+            tagService.query().$promise.then(function(data){
+                $rootScope.tagNames = data;
+            });
             //console.log($scope.tagsArrayReturned);
-
         };
 
         // TODO here could be why the $scope is being cleared when the state changes/loads
@@ -351,3 +367,8 @@ app.filter('testFilter2', function(){
     };
 });
 
+app.constant('_', window._)
+    // use in views, ng-repeat="x in _.range(3)"
+    .run(function ($rootScope) {
+        $rootScope._ = window._;
+    });

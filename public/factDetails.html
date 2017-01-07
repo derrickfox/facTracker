@@ -19,7 +19,7 @@
 <div layout="row">
     <md-card flex="25">
         <h1 class="md-display-2" align="center">{{$root.singleFact.factName}}</h1>
-        <div align="center"><img src="{{$root.singleFact.factDescription}}" id="myPic"></div>
+        <div align="center"></div>
     </md-card>
     <md-card flex="50" style="">
         <md-input-container class="md-block" flex-gt-sm style="margin-top: 40px;">
@@ -42,10 +42,13 @@
             <fieldset class="standard">
                 <legend>Tags</legend>
                 <div layout-wrap="" layout-gt-sm="row">
-                    <div ng-repeat="item in tagsArrayReturned | orderBy"  flex-gt-sm="50">
-                        <md-checkbox ng-checked="exists(item, $root.singleFact.factTags.factName)" ng-click="toggle(item, $root.selected)">
+                    <div ng-repeat="item in $root.tagNames | orderBy"  flex-gt-sm="50">
+                        <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item, $root.selected)">
                             {{ item.tagName }}
                         </md-checkbox>
+                        <!--<md-checkbox ng-checked="exists(item, $root.selected)" ng-click="toggle(item, $root.selected)">-->
+                            <!--{{ item.tagName }}-->
+                        <!--</md-checkbox>-->
                     </div>
                 </div>
             </fieldset>
@@ -55,8 +58,9 @@
 <form ng-submit="updateFact()">
     <button class="btn btn-primary" type="submit" ng-click="updateFact($root.singleFact._id)">Update Fact</button>
     <button class="btn btn-danger" ng-click="deleteFact($root.singleFact._id)">Delete Fact</button>
+    <p ng-repeat="item in $root.singleFact.factTags">{{item.tagName}}</p>
 </form><br>
-<button class="btn btn-danger" ng-click="loadArray()">Load Array</button>
+<button class="btn btn-danger" ng-click="loadArray($root.tagNames[0], $root.selected)">Load Array</button>
 
 
 

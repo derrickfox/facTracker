@@ -25,7 +25,7 @@
         height: 100%; }
 
 </style>
-<div layout="row">
+<div layout="row" ng-init="clearSelectedTagArray()">
     <md-button flex="100" ng-click="postToMongo()" class="btn btn-danger" layout="column">Add This Fact!</md-button>
 </div>
 <div layout="row">

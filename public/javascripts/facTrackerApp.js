@@ -201,16 +201,26 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         $scope.getAllFacts();
         $scope.getAllTags();
 
+        $scope.clearSelectedTagArray = function(){
+            $rootScope.selected = [];
+        }
+
 
         $scope.updateFact = function() {
             //alert($rootScope.singleReceipe._id);
             $scope.entry = factService.get({ id: $rootScope.singleFact._id }, function() {
+                _.each($rootScope.selected, function(data){
+                    var tagObject = {
+                        tagName: data
+                    }
+                    $scope.entry.factTags.push(tagObject);
+                });
                 $scope.entry.factName = $rootScope.singleFact.factName;
                 $scope.entry.factDescription = $rootScope.singleFact.factDescription;
                 $scope.entry.factURL = $rootScope.singleFact.factURL;
                 $scope.entry.factSource = $rootScope.singleFact.factSource;
                 //$scope.entry.factTags = $rootScope.singleFact.factTags;
-                $scope.entry.factTags = $rootScope.selected;
+                //$scope.entry.factTags = $rootScope.selected;
                 // TODO add a way to update picture URL.
                 $scope.entry.$update(function() {
                     $state.go('first');

@@ -1,7 +1,7 @@
 var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.router'])
     .controller('factController', function($scope, $state, $http, factService, tagService, $rootScope, $timeout){
         $scope.facts = factService.query();
-        $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: ['one'], factSource: ''};
+        $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
         $scope.newTag = {tagName: ''};
         $scope.tagName = '';
         $scope.factName = '';
@@ -67,7 +67,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
 
         };
 
-        $scope.exists = function (item, list) {;
+        $scope.exists = function (item, list) {
 
             //var idx = list.indexOf(item);
             //
@@ -115,10 +115,18 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         };
 
         $scope.postToMongo = function() {
+            _.each($rootScope.selected, function(data){
+                var tagObject = {
+                    tagName: data
+                }
+                $scope.newFact.factTags.push(tagObject);
+            });
+
             $scope.newFact.factName = $scope.factName;
             $scope.newFact.factDescription = $scope.factDescription;
             $scope.newFact.factURL = $scope.factURL;
-            $scope.newFact.factTags = $rootScope.selected;
+            // THIS IS AN ERROR. IT IS SAVING JUST THE TAG NAME INSTEAD OF THE ENTIRE TAG OBJECT
+            //$scope.newFact.factTags = $rootScope.selected;
             $scope.newFact.factSource = $scope.factSource;
             factService.save($scope.newFact, function(){
                 $scope.facts = factService.query();
@@ -202,7 +210,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 $scope.entry.factURL = $rootScope.singleFact.factURL;
                 $scope.entry.factSource = $rootScope.singleFact.factSource;
                 //$scope.entry.factTags = $rootScope.singleFact.factTags;
-                $scope.entry.factTags = $rootScope.singleFact.selected;
+                $scope.entry.factTags = $rootScope.selected;
                 // TODO add a way to update picture URL.
                 $scope.entry.$update(function() {
                     $state.go('first');

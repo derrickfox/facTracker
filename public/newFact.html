@@ -61,7 +61,7 @@
         </form><br>
         <h3>Available Tags...</h3><br>
         <div ng-repeat="item in $root.tagNames | orderBy">
-            <md-checkbox ng-checked="exists(item, $root.selected)" ng-click="toggle(item, $root.selected)">
+            <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item.tagName, $root.selected)">
                 {{ item.tagName }}
             </md-checkbox>
         </div>

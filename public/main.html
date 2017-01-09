@@ -4,11 +4,11 @@
         <md-card class="md-padding" style="margin: 1px; border-color: #000088; border-style: groove; border-color: deepskyblue; border-width: 3px;">
             <md-card-title-text>
                 <span class="md-headline">Search Facts...</span><br><br>
-                <span class="md-subhead"><input ng-model="searchFacts" placeholder="Filter Facts"></span>
+                <span class="md-subhead"><input ng-model="searchFacts" placeholder=" Filter Facts"></span>
             </md-card-title-text><br>
             <md-card-title-text>
                 <span class="md-headline">Search Tags...</span><br><br>
-                <span class="md-subhead"><input ng-model="searchTags" placeholder="Filter Tags"></span>
+                <span class="md-subhead"><input ng-model="searchTags" placeholder=" Filter Tags"></span>
             </md-card-title-text><br>
             <div ng-repeat="item in $root.tagNames | orderBy | filter:searchTags">
                 <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">

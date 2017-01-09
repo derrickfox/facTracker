@@ -13,7 +13,8 @@
     <!--</a>-->
 <!--</div>-->
 
-<a ng-click="getOneFact(rec._id)" class="factCell">
+
+<div ng-click="getOneFact(rec._id)" class="factCell">
     <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch="">
         <md-card-title>
             <md-card-title-text>
@@ -22,9 +23,9 @@
             </md-card-title-text>
             <md-card-title-media>
                 <div class="md-media-sm card-media">
-                    <span class="md-subhead">{{rec.factSource}}</span>
+                    <span class="md-subhead"><a href="{{rec.factURL}}">{{rec.factSource}}</a></span>
                 </div>
             </md-card-title-media>
         </md-card-title>
     </md-card>
-</a>
+</div>

@@ -1,25 +1,11 @@
-<!--<div class="factCell">-->
-    <!--<a ng-click="getOneFact(rec._id)">-->
-        <!--<div class="panel panel-primary">-->
-            <!--<div class="panel-heading panel-primary">-->
-                <!--<h4>{{rec.factName}}</h4>-->
-            <!--</div>-->
-            <!--<div class="panel-body">-->
-                <!--<h6>{{rec.factDescription}}</h6>-->
-                <!--<h6>{{rec.factURL}}</h6>-->
-                <!--<h6>Still need tags :( </h6>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</a>-->
-<!--</div>-->
-
-
 <div ng-click="getOneFact(rec._id)" class="factCell">
     <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch="">
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">{{rec.factName}}</span>
                 <span class="md-subhead">{{rec.factDescription}}</span>
+                <span >{{rec.factTags}}</span>
+                <!--<span ng-repeat="i in rec.factTags">{{i.tagName}}</span>-->
             </md-card-title-text>
             <md-card-title-media>
                 <div class="md-media-sm card-media">

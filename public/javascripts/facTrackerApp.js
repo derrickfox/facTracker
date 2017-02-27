@@ -12,8 +12,9 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         $scope.factID;
         $rootScope.singleFact;
         $rootScope.testName = 'failed';
-        $rootScope.test = "Root Test";
+        $scope.testString = "Test String Success!";
         $rootScope.selected;
+        $scope.checked = [];
 
         $scope.tags = [];
         $scope.tag = '';
@@ -57,7 +58,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 list.push(item);
             }
 
-
+            console.log($scope.selected);
             //for(var i = 0; list.length - 1; i++){
             //    if(item.tagName === list[i].tagName){
             //        list.push(item);
@@ -244,13 +245,23 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
             }
         };
 
+        $scope.testFunction = function(){
+            console.log($rootScope.tagNames);
+
+        };
+
+        $scope.checkTags = function(rec){
+            _.each($scope.selectedTags, function(tag){
+                if(_.includes(rec.factTags, tag.tagName) === true){
+
+                }else{
+                    return false;
+                }
+            })
+            return true;
+        }
+
     });
-
-
-/**
- Copyright 2016 Google Inc. All Rights Reserved.
- Use of this source code is governed by an MIT-style license that can be in foundin the LICENSE file at http://material.angularjs.org/license.
- **/
 
 app.factory('factService', function($resource){
     return $resource("/api/facts/:id", {
@@ -319,7 +330,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 });
 
-
 app.directive('card', function(){
     return {
         templateUrl: 'factCell.html'
@@ -348,7 +358,7 @@ app.filter('testFilter2', function(){
     return function(input, checkBoxes){
         var output = [];
 
-        function foundEveryElement(checked, receipe){
+        function foundEveryElement(checked, fact){
             var array = [];
 
             var foundAll = false;
@@ -371,17 +381,47 @@ app.filter('testFilter2', function(){
             if(checked.length > fact.tags.length){
                 foundAll = false;
             }
+            console.log(fact);
             return foundAll;
         }
 
-        //console.log(input);
-        //for(var i = 0; i < input.factTags.length; i++){
-        //    if(foundEveryElement(checkBoxes, input.factTags[i]) === true){
-        //        output.push(input.factTags[i]);
-        //    }
-        //}
+
+        for(var p = 0; p < input.length; p++){
+            for(var i = 0; i < input[p].factTags.length; i++){
+                if(foundEveryElement(checkBoxes, input[p].factTags[i]) === true){
+                    output.push(input[p].factTags[i]);
+                }
+            }
+        }
 
         return output;
+    };
+});
+
+app.filter('consoleTest', function(){
+    // This block run for each item in the list.
+    return function(input, testString){
+        // This prints each item in the list to the console. It can also input a $scope variable, in this case named 'testString'.
+        console.log(input);
+        console.log(testString);
+        // This makes the item appear in the list to the user.
+        return input;
+    };
+});
+
+app.filter('consoleTest2', function(){
+    // This block run for each item in the list.
+    return function(thisFact, selectedTags){
+
+        //_.each(selectedTags, function(selectedTag){
+        //    if(_.includes(thisFact.factTags, selectedTag) === false){
+        //        // don't do anything
+        //    }else{
+        //        return thisFact;
+        //    }
+        //});
+
+
     };
 });
 

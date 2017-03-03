@@ -211,6 +211,7 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         $scope.updateFact = function() {
             //alert($rootScope.singleReceipe._id);
             $scope.entry = factService.get({ id: $rootScope.singleFact._id }, function() {
+                $scope.entry.factTags = [];
                 _.each($rootScope.selected, function(data){
                     var tagObject = {
                         tagName: data

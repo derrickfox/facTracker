@@ -58,7 +58,8 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 list.push(item);
             }
 
-            console.log($scope.selected);
+            //console.log($scope.selected);
+
             //for(var i = 0; list.length - 1; i++){
             //    if(item.tagName === list[i].tagName){
             //        list.push(item);
@@ -251,15 +252,34 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
         };
 
         $scope.checkTags = function(rec){
-            _.each($scope.selectedTags, function(tag){
-                if(_.includes(rec.factTags, tag.tagName) === true){
 
-                }else{
-                    return false;
-                }
+
+            var passed = true;
+            var recordArray = [];
+            var selectedArray = [];
+
+            // Load tags array from RECORD
+            _.each(rec.factTags, function(recFactTag){
+                recordArray.push(recFactTag.tagName);
+            });
+
+            // Load tags array from SELECTED
+            _.each($scope.selected, function(selectedFactTag){
+                selectedArray.push(selectedFactTag.tagName);
             })
-            return true;
-        }
+
+            // Compare the two arrays
+            if(_.difference(selectedArray, recordArray).length !== 0){
+                passed = false;
+            }
+
+            console.log(selectedArray);
+            console.log(recordArray);
+            console.log(_.difference(recordArray, selectedArray).length);
+            // Return the result
+            return passed;
+
+        };
 
     });
 

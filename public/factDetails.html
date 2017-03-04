@@ -16,8 +16,9 @@
         margin-left: 20px;
     }
 </style>
+
 <div layout="row">
-    <md-card flex="25">
+    <md-card flex="25" style="height: 50%;">
         <h1 class="md-display-2" align="center">{{$root.singleFact.factName}}</h1>
         <div align="center"></div>
     </md-card>
@@ -55,12 +56,9 @@
         </div>
     </md-card>
 </div>
-<form ng-submit="updateFact()">
-    <button class="btn btn-primary" type="submit" ng-click="updateFact($root.singleFact._id)">Update Fact</button>
-    <button class="btn btn-danger" ng-click="deleteFact($root.singleFact._id)">Delete Fact</button>
-    <p ng-repeat="item in $root.singleFact.factTags">{{item.tagName}}</p>
-</form><br>
-<button class="btn btn-danger" ng-click="loadArray($root.tagNames[0], $root.selected)">Load Array</button>
-
-
+<div layout="row">
+    <md-button flex="100" ng-click="updateFact()" class="btn btn-primary" layout="column">Update This Fact!</md-button>
+</div>
+<br>
+<md-button class="btn btn-danger" ng-click="deleteFact($root.singleFact._id)">Delete Fact</md-button>
 

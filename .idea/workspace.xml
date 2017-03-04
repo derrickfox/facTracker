@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e41a1c0f-1b81-420e-a168-cec8b84918f2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/javascripts/facTrackerApp.js" afterPath="$PROJECT_DIR$/public/javascripts/facTrackerApp.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/factCell.html" afterPath="$PROJECT_DIR$/public/factCell.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/factDetails.html" afterPath="$PROJECT_DIR$/public/factDetails.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/main.html" afterPath="$PROJECT_DIR$/public/main.html" />
     </list>
     <ignored path="FacTracker.iws" />
@@ -24,11 +25,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="facTrackerApp.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="facTrackerApp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/javascripts/facTrackerApp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19138756">
-              <caret line="213" column="43" selection-start-line="213" selection-start-column="43" selection-end-line="213" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="202" column="29" selection-start-line="202" selection-start-column="29" selection-end-line="202" selection-end-column="29" />
               <folding>
                 <element signature="e#9648#10005#0" expanded="false" />
                 <element signature="e#10054#10252#0" expanded="false" />
@@ -42,12 +43,22 @@
       <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.875">
+              <caret line="11" column="62" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
               <folding>
                 <element signature="n#style#0;n#md-card#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="newFact.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/newFact.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-13.125">
+              <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -65,24 +76,24 @@
       <file leaf-file-name="factDetails.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/factDetails.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.0">
-              <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
-              <folding />
+            <state vertical-scroll-proportion="-4.5">
+              <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+              <folding>
+                <element signature="n#style#0;n#md-card#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MongoDB/factDB/facts" pinned="false" current-in-tab="false">
-        <entry file="mongo://MongoDB/factDB/facts">
-          <provider selected="true" editor-type-id="MongoData">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MongoDB/factDB/tags" pinned="false" current-in-tab="false">
-        <entry file="mongo://MongoDB/factDB/tags">
-          <provider selected="true" editor-type-id="MongoData">
-            <state />
+      <file leaf-file-name="factCell.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/factCell.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4477612">
+              <caret line="18" column="96" selection-start-line="18" selection-start-column="96" selection-end-line="18" selection-end-column="96" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#a#0;n#md-card-title-media#0;n#md-card-title#0;n#md-card#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -113,12 +124,12 @@
         <option value="$PROJECT_DIR$/routes/api.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/style.css" />
         <option value="$PROJECT_DIR$/models/factModel.js" />
-        <option value="$PROJECT_DIR$/public/factDetails.html" />
         <option value="$PROJECT_DIR$/public/newFact.html" />
-        <option value="$PROJECT_DIR$/public/factCell.html" />
         <option value="$PROJECT_DIR$/views/index.ejs" />
-        <option value="$PROJECT_DIR$/public/main.html" />
         <option value="$PROJECT_DIR$/public/javascripts/facTrackerApp.js" />
+        <option value="$PROJECT_DIR$/public/factDetails.html" />
+        <option value="$PROJECT_DIR$/public/main.html" />
+        <option value="$PROJECT_DIR$/public/factCell.html" />
       </list>
     </option>
   </component>
@@ -668,22 +679,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/newFact.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="38" selection-start-line="61" selection-start-column="38" selection-end-line="61" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/factCell.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.75">
-          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/models/factModel.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.023923445">
@@ -708,18 +703,41 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/newFact.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.125">
+          <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/facTrackerApp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="202" column="29" selection-start-line="202" selection-start-column="29" selection-end-line="202" selection-end-column="29" />
+          <folding>
+            <element signature="e#9648#10005#0" expanded="false" />
+            <element signature="e#10054#10252#0" expanded="false" />
+            <element signature="e#10312#11212#0" expanded="false" />
+            <element signature="e#11248#11308#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/factDetails.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.0">
-          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
-          <folding />
+        <state vertical-scroll-proportion="-4.5">
+          <caret line="20" column="23" selection-start-line="20" selection-start-column="23" selection-end-line="20" selection-end-column="23" />
+          <folding>
+            <element signature="n#style#0;n#md-card#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="-6.875">
+          <caret line="11" column="62" selection-start-line="11" selection-start-column="62" selection-end-line="11" selection-end-column="62" />
           <folding>
             <element signature="n#style#0;n#md-card#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -727,15 +745,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/facTrackerApp.js">
+    <entry file="file://$PROJECT_DIR$/public/factCell.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19138756">
-          <caret line="213" column="43" selection-start-line="213" selection-start-column="43" selection-end-line="213" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.4477612">
+          <caret line="18" column="96" selection-start-line="18" selection-start-column="96" selection-end-line="18" selection-end-column="96" />
           <folding>
-            <element signature="e#9648#10005#0" expanded="false" />
-            <element signature="e#10054#10252#0" expanded="false" />
-            <element signature="e#10312#11212#0" expanded="false" />
-            <element signature="e#11248#11308#0" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#a#0;n#md-card-title-media#0;n#md-card-title#0;n#md-card#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

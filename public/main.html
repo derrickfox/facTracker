@@ -9,7 +9,7 @@
                 <span class="md-headline">Search Tags...</span><br><br>
                 <span class="md-subhead"><input ng-model="selectedTags" placeholder=" Filter Tags"></span>
             </md-card-title-text><br>
-            <div ng-repeat="item in $root.tagNames | orderBy | filter:selectedTags">
+            <div ng-repeat="item in $root.tagNames | orderBy:'tagName' | filter:selectedTags">
                 <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)" ng-model="checked">
                     {{ item.tagName }}
                 </md-checkbox>

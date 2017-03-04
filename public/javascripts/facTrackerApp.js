@@ -274,9 +274,9 @@ var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngM
                 passed = false;
             }
 
-            console.log(selectedArray);
-            console.log(recordArray);
-            console.log(_.difference(recordArray, selectedArray).length);
+            //console.log(selectedArray);
+            //console.log(recordArray);
+            //console.log(_.difference(recordArray, selectedArray).length);
             // Return the result
             return passed;
 
@@ -343,8 +343,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
             controller: 'factController'
         })
 
-        .state('new', {
-            url: '/new',
+        .state('newTag', {
+            url: '/newTag/',
+            templateUrl: 'newTag.html',
+            controller: 'factController'
+        })
+
+        .state('newFact', {
+            url: '/newFact/',
             templateUrl: 'newFact.html',
             controller: 'factController'
         });

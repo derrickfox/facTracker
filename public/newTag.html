@@ -1,0 +1,48 @@
+<style>
+    .checkboxdemoSyncing .checkboxDemo1 div {
+        clear: both; }
+
+    .checkboxdemoSyncing legend {
+        color: #3F51B5; }
+
+    .checkboxdemoSyncing legend code {
+        color: #3F51B5;
+        font-weight: normal; }
+
+    .checkboxdemoSyncing p {
+        padding-left: 8px; }
+
+    .checkboxdemoSyncing .info {
+        padding-left: 13px; }
+
+    .checkboxdemoSyncing div.standard {
+        padding: 8px;
+        padding-left: 15px; }
+
+    .checkboxdemoSyncing fieldset.standard {
+        border-style: solid;
+        border-width: 1px;
+        height: 100%; }
+
+</style>
+<div layout="row" ng-init="clearSelectedTagArray()">
+    <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add This Tag!</md-button>
+</div>
+<div layout="row">
+    <md-card flex="100" class="md-padding">
+        <h1 class="md-display-2">Add a new tag...<p align="center">{{newTag.tagName}}</p></h1>
+            <md-input-container class="md-block" flex-gt-sm>
+                <label>New Tag Name</label><br>
+                <input ng-model="newTag.tagName">
+            </md-input-container>
+        <h3>Existing Tags :</h3><br>
+        <div layout="row" layout-wrap>
+            <div ng-repeat="item in $root.tagNames | orderBy:'tagName'">
+                <md-button class="btn btn-info">{{item.tagName}}</md-button>
+            </div>
+        </div>
+    </md-card>
+</div>
+</div>
+
+<!--<button ui-sref="newIng" class="btn btn-success">Add Ingredient</button><br><br>-->

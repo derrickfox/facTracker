@@ -29,7 +29,7 @@
     <md-button flex="100" ng-click="postToMongo()" class="btn btn-danger" layout="column">Add This Fact!</md-button>
 </div>
 <div layout="row">
-    <md-card class="md-padding" layout="column" flex="50">
+    <md-card class="md-padding" layout="column" flex="100">
         <h1 class="md-display-2">Enter in a new fact!</h1>
         <form ng-submit="postToMongo()">
             <md-input-container class="md-block" flex-gt-sm>
@@ -48,23 +48,13 @@
                 <label>Fact Source</label>
                 <textarea ng-model="factSource" rows="5" md-select-on-focus></textarea>
             </md-input-container>
+            <h3>Available Tags...</h3><br>
+            <div ng-repeat="item in $root.tagNames | orderBy:'tagName'">
+                <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item.tagName, $root.selected)">
+                    {{ item.tagName }}
+                </md-checkbox>
+            </div>
         </form>
-    </md-card>
-    <md-card flex="50" class="md-padding">
-        <h3>Add a new tag...</h3>
-        <form ng-submit="postTagToMongo()">
-            <md-input-container class="md-block" flex-gt-sm>
-                <label>New Tag Name</label><br>
-                <input ng-model="newTag.tagName">
-            </md-input-container>
-            <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add New Tag!</md-button>
-        </form><br>
-        <h3>Available Tags...</h3><br>
-        <div ng-repeat="item in $root.tagNames | orderBy:'tagName'">
-            <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item.tagName, $root.selected)">
-                {{ item.tagName }}
-            </md-checkbox>
-        </div>
     </md-card>
 </div>
 </div>

@@ -38,15 +38,15 @@
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Fact Description</label>
-                <textarea ng-model="factDescription" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                <textarea ng-model="factDescription" rows="5" md-select-on-focus></textarea>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Fact URL</label>
-                <textarea ng-model="factURL" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                <textarea ng-model="factURL" rows="5" md-select-on-focus></textarea>
             </md-input-container>
             <md-input-container class="md-block">
                 <label>Fact Source</label>
-                <textarea ng-model="factSource" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+                <textarea ng-model="factSource" rows="5" md-select-on-focus></textarea>
             </md-input-container>
         </form>
     </md-card>
@@ -60,7 +60,7 @@
             <md-button flex="100" ng-click="postTagToMongo()" class="btn btn-danger" layout="column">Add New Tag!</md-button>
         </form><br>
         <h3>Available Tags...</h3><br>
-        <div ng-repeat="item in $root.tagNames | orderBy">
+        <div ng-repeat="item in $root.tagNames | orderBy:'tagName'">
             <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item.tagName, $root.selected)">
                 {{ item.tagName }}
             </md-checkbox>

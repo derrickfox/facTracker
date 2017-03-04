@@ -27,9 +27,9 @@
             <label>Fact Name </label>
             <input md-select-on-focus ng-model="$root.singleFact.factName"></input><br><br><br>
         </md-input-container>
-        <md-input-container class="md-block" flex-gt-sm>
+        <md-input-container class="md-block"  rows="5" flex-gt-sm>
             <label>Fact Description </label>
-            <input md-select-on-focus ng-model="$root.singleFact.factDescription"></input><br><br><br>
+            <textarea md-select-on-focus ng-model="$root.singleFact.factDescription"></textarea><br><br><br>
         </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
             <label>Fact URL </label>
@@ -43,7 +43,7 @@
             <fieldset class="standard">
                 <legend>Tags</legend>
                 <div layout-wrap="" layout-gt-sm="row">
-                    <div ng-repeat="item in $root.tagNames | orderBy"  flex-gt-sm="50">
+                    <div ng-repeat="item in $root.tagNames | orderBy:'tagName'"  flex-gt-sm="50">
                         <md-checkbox ng-checked="exists(item.tagName, $root.selected)" ng-click="toggle(item.tagName, $root.selected)">
                             {{ item.tagName }}
                         </md-checkbox>

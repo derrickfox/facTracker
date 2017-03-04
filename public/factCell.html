@@ -4,22 +4,17 @@
         align-content: center;
     }
 </style>
-
 <div ng-click="getOneFact(rec._id)" class="factCell">
-    <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch="">
+    <md-card md-theme="{{ showDarkTheme ? 'dark-purple' : 'default' }}" md-theme-watch="" style="border-radius: 25px;">
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">{{rec.factName}}</span>
-                <span class="md-subhead">{{rec.factDescription}}</span>
+                <span class="md-subhead" style="padding: 7px;">{{rec.factDescription}}</span>
                 <!--<span >{{rec.factTags}}</span>-->
                 <span ng-repeat="i in rec.factTags">{{i.tagName}}</span>
             </md-card-title-text>
             <md-card-title-media>
-                <a href="{{rec.factURL}}" target="_blank">
-                    <div class="md-media-sm card-media" align="center" style="padding-top: 10px;">
-                        <span class="md-subhead">{{rec.factSource}}</span>
-                    </div>
-                </a>
+                <a href="{{rec.factURL}}" target="_blank"><md-button class="btn btn-info">{{rec.factSource}}</md-button></a>
             </md-card-title-media>
         </md-card-title>
     </md-card>

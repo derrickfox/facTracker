@@ -2,13 +2,16 @@
     <div flex="20">
         <md-card class="md-padding" style="margin: 1px; border-color: #000088; border-style: groove; border-color: deepskyblue; border-width: 3px; border-radius: 25px;">
             <md-card-title-text>
-                <span class="md-headline">Search Facts...</span><br><br>
-                <span class="md-subhead"><input ng-model="searchFacts" placeholder=" Filter Facts"></span>
-            </md-card-title-text><br>
-            <md-card-title-text>
-                <span class="md-headline">Search Tags...</span><br><br>
-                <span class="md-subhead"><input ng-model="selectedTags" placeholder=" Filter Tags"></span>
-            </md-card-title-text><br>
+                <span class="md-headline">Filter Articles</span><br><br>
+                <md-input-container style="margin-top: 10px; margin-bottom: 0px;">
+                    <label>Search Keywords</label>
+                    <input ng-model="searchFacts">
+                </md-input-container>
+                <md-input-container style="margin-bottom: 0px; margin-top: 0px;">
+                    <label>Search Tags</label>
+                    <input ng-model="selectedTags">
+                </md-input-container>
+            </md-card-title-text>
             <div ng-repeat="item in $root.tagNames | orderBy:'tagName' | filter:selectedTags">
                 <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)" ng-model="checked">
                     {{ item.tagName }}

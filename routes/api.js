@@ -1,13 +1,49 @@
+'use strict';
+
 var express = require('express');
+var app = express();
 var router = express.Router();
 var mongoose = require( 'mongoose' );
 var Fact = mongoose.model('Fact');
 var Tag = mongoose.model('Tag');
+var jwt = require('express-jwt');
+var cors = require('cors');
+
+app.use(cors());
+
+// Setting up Middleware here...
+
+var authCheck = jwt({
+    // TODO Configure Me or I Won't Work!!
+    secret: new Buffer('C4kOQd7qvkMG6jnkI_QQjkosyUx3ap8KufMwBcWQIV_Skm92LTZsgKM4KbXBXGv4'),
+    audience: 'AtIFffBkNSn1ohWviV9CneIuoxTURDpb'
+});
+
+// ... middleware finished here.
+
+// app.get('/public', function (req, res) {
+//     res.json({message: "Hello from a public endpoint. No Auth Needed...yay"});
+// });
+//
+// app.get('/private', authCheck, function (req, res) {
+//     console.log(req);
+//     res.json({message: "Hello from a private endpoint. You need to be authenticated"});
+// });
+
+router.route('/public')
+    .get(function (req, res) {
+        res.json({message: "Hello from a public FacTracker endpoint. No Auth Needed...yay"});
+    });
+
+router.route('/private')
+    .get(authCheck, function (req, res) {
+        res.json({message: "Priavte Point Reached: Good thing you have access ;) "});
+    });
+
 
 router.route('/tags')
     //creates a new tag
     .post(function(req, res){
-
         var tag = new Tag();
         tag.tagName = req.body.tagName;
         tag.save(function(err, tag) {
@@ -133,3 +169,4 @@ router.route('/facts/:id')
     });
 
 module.exports = router;
+console.log('App is running on http://localhost:3000/#/');

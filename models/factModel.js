@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var factSchema = new mongoose.Schema({
-    factName: String,		//should be changed to ObjectId, ref "User"
+    factName: String,
     factDescription: String,
     factURL: String,
     factTags: Array,

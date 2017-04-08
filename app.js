@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 require('./models/factModel');
 require('./models/tagModel');
+require('./models/userModel');
+
 
 //require('./public/javascripts/receipeApp');
 var index = require('./routes/index');

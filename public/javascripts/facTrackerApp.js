@@ -1,8 +1,9 @@
 var app = angular.module('factApp', ['ngRoute', 'ngResource', 'ngMaterial', 'ngMessages', 'ui.router', 'angular-jwt', 'auth0', 'angular-storage']);
 
-app.controller('factController', function($scope, $state, $http, factService, tagService, $rootScope, $timeout){
+app.controller('factController', function($scope, $state, $http, factService, tagService, userService, userFactory, $rootScope, $timeout, store){
         $scope.facts = factService.query();
         $scope.newFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
+
         $scope.newTag = {tagName: ''};
         $scope.tagName = '';
         $scope.factName = '';
@@ -23,6 +24,7 @@ app.controller('factController', function($scope, $state, $http, factService, ta
         $scope.selectedArray = [];
         $scope.resultsArray = [];
         $rootScope.tagNames = [];
+        $scope.favorite = false;
 
         $scope.findInArray = function(inst, list) {
             for(var l = 0; l < list.length-1; l++){
@@ -49,7 +51,12 @@ app.controller('factController', function($scope, $state, $http, factService, ta
         };
 
         $scope.exists = function (item, list) {
-            return list.indexOf(item) > -1;
+            if(item){
+                if(list){
+                    return list.indexOf(item) > -1;
+                }
+            }
+            //return list.indexOf(item) > -1;
         };
 
         $scope.choices = [{id: 'choice1'}, {id: 'choice2'}];
@@ -110,15 +117,12 @@ app.controller('factController', function($scope, $state, $http, factService, ta
                 thisFact.factSource = fact.factSource;
                 return thisFact;
             });
+            console.log($rootScope.singleFact);
             $rootScope.singleFact.$promise.then(function(data){
                 $rootScope.selected = [];
                 angular.forEach(data.factTags, function(tag){
                     $rootScope.selected.push(tag.tagName);
                 });
-                console.log("$rootScope.selected from Dashboard...")
-                console.log($rootScope.selected);
-                console.log("$rootScope.singleFact.factTags from Dashboard...")
-                console.log($rootScope.singleFact.factTags);
 
                 $state.go('details');
             });
@@ -134,9 +138,135 @@ app.controller('factController', function($scope, $state, $http, factService, ta
             });
         };
 
+
+        // $scope.getThisUser = function () {
+        //     var loggedInUser = userService.get({id: $rootScope.auth0_user_id}, function(user) {
+        //         var thisUser = {
+        //             userAuth0id: user.userAuth0id,
+        //             userFirstName: user.userFirstName,
+        //             userLastName: user.userLastName,
+        //             userEmail: user.userEmail,
+        //             userFavoriteArticles: user.userFavoriteArticles,
+        //             userArticlesAdded: user.userArticlesAdded
+        //         };
+        //         return thisUser;
+        //     });
+        // };
+
+        $scope.getThisUser = function () {
+            $rootScope.user = userService.get({id: '58e8fe974282dc05c2db3ca6'}, function(user) {
+                var thisUser = {userAuth0id: '', userFirstName: '', userLastName: '', userEmail: '', userFavoriteArticles: [], userArticlesAdded: []};
+                    thisUser.userAuth0id = user.userAuth0id,
+                    thisUser.userFirstName = user.userFirstName,
+                    thisUser.userLastName = user.userLastName,
+                    thisUser. userEmail = user.userEmail,
+                    thisUser.userFavoriteArticles = user.userFavoriteArticles,
+                    thisUser.userArticlesAdded = user.userArticlesAdded
+                return thisUser;
+            });
+
+            // $rootScope.singleFact = factService.get({id: id}, function(fact) {
+            //     var thisFact = {factName: '', factDescription: '', factURL: '', factTags: [], factSource: ''};
+            //     thisFact.factName = fact.factName;
+            //     thisFact.factDescription = fact.factDescription;
+            //     thisFact.factURL = fact.factURL;
+            //     thisFact.factTags = fact.factTags;
+            //     thisFact.factSource = fact.factSource;
+            //     return thisFact;
+            // });
+            // console.log($rootScope.singleFact);
+        };
+
+    $scope.getThisUserWithFactory = function () {
+        $rootScope.user = userFactory.get({userAuth0id: $rootScope.auth0_user_id}, function(user) {
+            var thisUser = {userAuth0id: '', userFirstName: '', userLastName: '', userEmail: '', userFavoriteArticles: [], userArticlesAdded: []};
+            thisUser.userAuth0id = user.userAuth0id,
+                thisUser.userFirstName = user.userFirstName,
+                thisUser.userLastName = user.userLastName,
+                thisUser. userEmail = user.userEmail,
+                thisUser.userFavoriteArticles = user.userFavoriteArticles,
+                thisUser.userArticlesAdded = user.userArticlesAdded
+            return thisUser;
+        });
+    };
+
+        $scope.createNewUserProfile = function () {
+            var auth0_profile = store.get('profile');
+            $scope.auth0_user_id = auth0_profile.identities[0].user_id;
+
+            console.log($rootScope.userAuth0Profile);
+
+            $scope.newUser = {
+                userAuth0id: $scope.userAuth0Profile.identities[0].user_id,
+                userFirstName: $rootScope.userAuth0Profile.nickname,
+                userLastName: $rootScope.userAuth0Profile.nickname,
+                userEmail: $rootScope.userAuth0Profile.email,
+                userFavoriteArticles: [],
+                userArticlesAdded: []
+            };
+            userService.save($scope.newUser, function(){
+                console.log("New User Created");
+            });
+        }
+
+        $scope.checkIfNewUser = function () {
+            if($rootScope.user){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        $scope.toggleFavorite = function (favorite) {
+
+            $scope.getThisUserWithFactory();
+            console.log($rootScope.user);
+
+            // if($scope.checkIfNewUser() === true){
+            //
+            //     $scope.createNewUserProfile();
+            //
+            //     console.log(user);
+            //
+            //     if(favorite === true){
+            //         if(_.includes()){
+            //             console.log("Already a favorite for this user");
+            //         }else{
+            //             $rootScope.loggedInUser.userFavoriteArticles.push(favorite);
+            //         }
+            //     }else if(favorite === false){
+            //         if(this fact is in $rootScope.loggedInUser.userFavoriteArticles){
+            //             remove favorite from $rootScope.loggedInUser.userFavoriteArticles
+            //         }else{
+            //             console.log("This is not a favorite for this users");
+            //         }
+            //     }else{
+            //         console.log("Something...else...happend");
+            //     }
+            // }else{
+            //     if(favorite === true){
+            //         if(this fact is in $rootScope.loggedInUser.userFavoriteArticles){
+            //             console.log("Already a favorite for this user");
+            //         }else{
+            //             $rootScope.loggedInUser.userFavoriteArticles.push(favorite);
+            //         }
+            //     }else if(favorite === false){
+            //         if(this fact is in $rootScope.loggedInUser.userFavoriteArticles){
+            //             remove favorite from $rootScope.loggedInUser.userFavoriteArticles
+            //         }else{
+            //             console.log("This is not a favorite for this users");
+            //         }
+            //     }else{
+            //         console.log("Something...else...happend");
+            //     }
+            // }
+        };
+
         // TODO here could be why the $scope is being cleared when the state changes/loads
         $scope.getAllFacts();
         $scope.getAllTags();
+
+        //$scope.checkIfNewUser();
 
         $scope.clearSelectedTagArray = function(){
             $rootScope.selected = [];
@@ -231,6 +361,40 @@ app.factory('tagService', function($resource){
     return $resource("/api/tags/:id", {
             id: "@_id",
             tagName: "@tagName"
+        },
+        {
+            update: {
+                method: 'PUT'
+            }
+        });
+});
+
+app.factory('userService', function($resource){
+    return $resource("/api/users/:id", {
+            id: "@_id",
+            userAuth0id: "@userAuth0id",
+            userFirstName: "@userFirstName",
+            userLastName: "@userLastName",
+            userEmail: "@userEmail",
+            userFavoriteArticles: "@userFavoriteArticles",
+            userArticlesAdded: "@userArticlesAdded"
+        },
+        {
+            update: {
+                method: 'PUT'
+            }
+        });
+});
+
+app.factory('userFactory', function($resource){
+    return $resource("/api/getuser/:userAuth0id", {
+            id: "@_id",
+            userAuth0id: "@userAuth0id",
+            userFirstName: "@userFirstName",
+            userLastName: "@userLastName",
+            userEmail: "@userEmail",
+            userFavoriteArticles: "@userFavoriteArticles",
+            userArticlesAdded: "@userArticlesAdded"
         },
         {
             update: {
@@ -349,7 +513,7 @@ app.directive('card', function(){
 
 // Toolbar Assembly
 
-app.directive('toolbar', function (auth, store, $location) {
+app.directive('toolbar', function (auth, store, $location, $rootScope) {
     return {
         templateUrl: 'toolbar.html',
         controller: toolbarController,
@@ -373,6 +537,12 @@ app.directive('toolbar', function (auth, store, $location) {
             auth.signin({}, function (profile, token) {
                 store.set('profile', profile);
                 store.set('id_token', token);
+                $rootScope.userAuth0Profile = store.get('profile');
+
+                var auth0_profile = store.get('profile');
+                $rootScope.auth0_user_id = auth0_profile.identities[0].user_id;
+
+                console.log($rootScope.userAuth0Profile);
                 $location.path('/home');
             }, function (error) {
                 console.log(error);
@@ -398,7 +568,7 @@ app.constant('_', window._)
 
 app.controller('profileController', profileController);
 
-function profileController($scope, $http, store) {
+function profileController($scope, $http, store, $rootScope) {
     var viewModel = this;
     viewModel.test = 'Test working';
 
@@ -406,9 +576,7 @@ function profileController($scope, $http, store) {
     viewModel.getSecretMessage = getSecretMessage;
     viewModel.getTestMessage = getTestMessage;
     viewModel.message;
-
     viewModel.profile = store.get('profile');
-    console.log(viewModel.profile);
 
     function getTestMessage() {
         viewModel.test = "getTestMessage clicked";

@@ -15,14 +15,29 @@
     .myCheckBox2 {
         margin-left: 20px;
     }
+
+    #favoriteCheckbox {
+        margin: 0px auto 0px auto;
+        jusify: right;
+    }
 </style>
 
+<toolbar></toolbar>
 <div layout="row">
-    <md-card flex="25" style="height: 50%;">
-        <h1 class="md-display-2" align="center" style="margin: 20px;">{{$root.singleFact.factName}}</h1>
-        <div align="center"></div>
-    </md-card>
-    <md-card flex="50" style="">
+    <div flex="">
+        <md-card style="height: 50%;">
+            <h1 class="md-display-2" align="center" style="margin: 20px;">{{$root.singleFact.factName}}</h1>
+            <div align="center"></div>
+        </md-card>
+        <md-card>
+            <md-switch ng-model="favorite"
+                       id="favoriteCheckbox"
+                       ng-change="toggleFavorite(favorite)"
+                       ng-if="toolbar.auth.isAuthenticated"
+                       flex> Favorite : {{ favorite }}</md-switch>
+        </md-card>
+    </div>
+    <md-card flex="80" style="">
         <md-input-container class="md-block" flex-gt-sm style="margin-top: 40px;">
             <label>Fact Name </label>
             <input md-select-on-focus ng-model="$root.singleFact.factName"></input><br><br><br>

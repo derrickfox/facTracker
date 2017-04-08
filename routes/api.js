@@ -3,9 +3,10 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var mongoose = require( 'mongoose' );
+var mongoose = require('mongoose');
 var Fact = mongoose.model('Fact');
 var Tag = mongoose.model('Tag');
+var User = mongoose.model('User');
 var jwt = require('express-jwt');
 var cors = require('cors');
 
@@ -167,6 +168,87 @@ router.route('/facts/:id')
             res.json("deleted :(");
         });
     });
+
+router.route('/users')
+//creates a new user
+    .post(function(req, res){
+
+        var user = new User();
+        user.userAuth0id = req.body.userAuth0id;
+        user.userFirstName = req.body.userFirstName;
+        user.userLastName = req.body.userLastName;
+        user.userEmail = req.body.userEmail;
+        user.userFavoriteArticles = req.body.userFavoriteArticles;
+        user.userArticlesAdded = req.body.userArticlesAdded;
+        user.save(function(err, user) {
+            if (err){
+                return res.send(500, err);
+            }
+            return res.json(user);
+        });
+    })
+    //gets all users
+    .get(function(req, res){
+        User.find(function(err, users){
+            if(err){
+                return res.send(500, err);
+            }
+            return res.send(200,users);
+        });
+    });
+
+//user-specific commands.
+router.route('/users/:id')
+    //gets specified user
+    .get(function(req, res){
+        User.findById(req.params.id, function(err, user){
+            if(err)
+                res.send(err);
+            res.json(user);
+        });
+    })
+    //updates specified user
+    .put(function(req, res){
+        User.findById(req.params.id, function(err, user){
+            if(err)
+                res.send(err);
+
+            user.userAuth0id = req.body.userAuth0id;
+            user.userFirstName = req.body.userFirstName;
+            user.userLastName = req.body.userLastName;
+            user.userEmail = req.body.userEmail;
+            user.userFavoriteArticles = req.body.userFavoriteArticles;
+            user.userArticlesAdded = req.body.userArticlesAdded;
+
+            user.save(function(err, user){
+                if(err)
+                    res.send(err);
+
+                res.json(user);
+            });
+        });
+    })
+    //deletes the user
+    .delete(function(req, res) {
+        User.remove({
+            _id: req.params.id
+        }, function(err) {
+            if (err)
+                res.send(err);
+            res.json("deleted :(");
+        });
+    });
+
+//get specific user by user's Auth0 ID number.
+router.route('/getuser/:userAuth0id').get(function (reg, res) {
+            User.findOne({ 'userAuth0id': '58c414323c9c2b7caff4b629' }, 'userAuth0id userFirstName userLastName userEmail userFavoriteArticles userArticlesAdded', function (err, user) {
+                if(err)
+                    res.send(err);
+                    console.log("Error found in the call dude.");
+                res.json(user);
+                console.log(user);
+            });
+        });
 
 module.exports = router;
 console.log('App is running on http://localhost:3000/#/');
